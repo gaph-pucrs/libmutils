@@ -1,4 +1,4 @@
-# libmemphis
+# libmutils
 
 Utility library for [MA-Memphis](https://github.com/gaph-pucrs/MA-Memphis).
 
