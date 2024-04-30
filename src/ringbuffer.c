@@ -143,3 +143,14 @@ bool ringbuffer_full(ringbuffer_t *buffer)
 {
 	return buffer->_full;
 }
+
+void ringbuffer_destroy(ringbuffer_t *buffer)
+{
+	free(buffer->_data);
+	buffer->_data = NULL;
+	buffer->_size = 0;
+	buffer->_head = 0;
+	buffer->_tail = 0;
+	buffer->_full = true;
+	buffer->_empty = true;
+}
