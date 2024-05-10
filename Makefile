@@ -1,6 +1,8 @@
 YELLOW	= \033[0;33m
 NC		= \033[0m # No Color
 
+TARGET = libmutils.a
+
 SRCDIR = src
 INCDIR = src/include
 
@@ -9,15 +11,15 @@ AR = riscv64-elf-gcc-ar
 OBJDUMP = riscv64-elf-objdump
 OBJCOPY = riscv64-elf-objcopy
 
-CFLAGS	= -march=rv32im -mabi=ilp32 -Os -std=c11 -fdata-sections -ffunction-sections -flto -Wall -I$(INCDIR)
+CFLAGS	= -march=rv32im -mabi=ilp32 -Os -std=c17 -fdata-sections -ffunction-sections -flto -Wall -I$(INCDIR)
 
 SRCC = $(wildcard $(SRCDIR)/*.c)
 SRCS = $(wildcard $(SRCDIR)/*.S)
 OBJ = $(patsubst %.c, %.o, $(SRCC)) $(patsubst %.S, %.o, $(SRCS))
 
-all: libmutils.a
+all: $(TARGET)
 
-libmutils.a: $(OBJ)
+$(TARGET): $(OBJ)
 	@$(AR) rcs $@ $^
 
 $(SRCDIR)/%.o: $(SRCDIR)/%.c
@@ -31,11 +33,5 @@ $(SRCDIR)/%.o: $(SRCDIR)/%.S
 clean:
 	@rm -f $(SRCDIR)/*.o
 	@rm -f *.a
-
-install: libmutils.a
-	@mkdir -p ../include
-	@mkdir -p ../lib
-	@cp -r $(INCDIR)/* ../include
-	@cp libmutils.a ../lib/libmutils.a
 
 .PHONY: clean
