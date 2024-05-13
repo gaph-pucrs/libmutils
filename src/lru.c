@@ -1,5 +1,5 @@
 /**
- * MA-Memphis
+ * libmutils
  * @file lru.c
  *
  * @author Angelo Elias Dal Zotto (angelo.dalzotto@edu.pucrs.br)
@@ -8,7 +8,7 @@
  * 
  * @date September 2022
  *
- * @brief LRU queue for Memphis base on linked list
+ * @brief LRU queue based on linked list
  */
 
 #include "mutils/lru.h"

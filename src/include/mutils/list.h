@@ -1,5 +1,5 @@
 /**
- * MA-Memphis
+ * libmutils
  * @file list.h
  *
  * @author Angelo Elias Dal Zotto (angelo.dalzotto@edu.pucrs.br)
@@ -8,7 +8,7 @@
  * 
  * @date August 2022
  *
- * @brief Linked list for Memphis
+ * @brief Linked list
  */
 
 #pragma once
