@@ -15,7 +15,7 @@ OBJCOPY = riscv64-elf-objcopy
 CFLAGS	= -march=rv32im -mabi=ilp32 -Os -std=c17 -fdata-sections -ffunction-sections -flto -Wall -I$(INCDIR)
 
 SRCC = $(wildcard $(SRCDIR)/*.c)
-OBJ = $(patsubst %.c, %.o, $(SRCC)) $(patsubst %.S, %.o, $(SRCS))
+OBJ = $(patsubst %.c, %.o, $(SRCC))
 
 all: $(TARGET)
 
