@@ -21,7 +21,6 @@
 typedef struct _lru {
 	list_t list;
 	size_t max_size;
-	size_t data_size;
 } lru_t;
 
 /**
