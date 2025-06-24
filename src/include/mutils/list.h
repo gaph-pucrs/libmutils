@@ -80,10 +80,14 @@ list_entry_t *list_push_back(list_t *list, void *data);
 /**
  * @brief Removes an element from list
  * 
+ * @details You need to manually free the entry data
+ * 
  * @param list Pointer to the list structure
  * @param entry Pointer to the element to remove
+ * 
+ * @return Pointer to the entry data 
  */
-void list_remove(list_t *list, list_entry_t *entry);
+void *list_remove(list_t *list, list_entry_t *entry);
 
 /**
  * @brief Gets the first element of the list
@@ -112,9 +116,13 @@ list_entry_t *list_next(list_entry_t *entry);
 /**
  * @brief Removes the first element of the list
  * 
+ * @details You need to manually free the entry data
+ * 
  * @param list Pointer to the list
+ * 
+ * @return Pointer to the entry data
  */
-void list_pop_front(list_t *list);
+void *list_pop_front(list_t *list);
 
 /**
  * @brief Checks if the list is empty
@@ -137,10 +145,10 @@ size_t list_get_size(list_t *list);
  * @brief Creates a contiguous vector from the list
  * 
  * @param list Pointer to the list
+ * @param dst Pointer to the destination vector
  * @param data_size Size of each element in the list
- * @return void* Pointer to the created vector, NULL if no memory
  */
-void *list_vectorize(list_t *list, size_t data_size);
+void list_vectorize(list_t *list, void *dst, size_t data_size);
 
 /**
  * @brief Clears all elements inside a list

@@ -77,10 +77,10 @@ list_entry_t *list_push_back(list_t *list, void *data)
 	return entry;
 }
 
-void list_remove(list_t *list, list_entry_t *entry)
+void *list_remove(list_t *list, list_entry_t *entry)
 {
 	if(list == NULL || entry == NULL)
-		return;
+		return NULL;
 
 	if(entry == list->head)
 		list->head = entry->next;
@@ -94,11 +94,13 @@ void list_remove(list_t *list, list_entry_t *entry)
 	if(entry->next != NULL)
 		entry->next->prev = entry->prev;
 
-	/* Remember to free dinamically allocated members of list entry */
-
+	void *data = entry->data;
+	
 	free(entry);
 
 	list->size--;
+
+	return data;
 }
 
 list_entry_t *list_front(list_t *list)
@@ -125,15 +127,15 @@ list_entry_t *list_next(list_entry_t *entry)
 	return entry->next;
 }
 
-void list_pop_front(list_t *list)
+void *list_pop_front(list_t *list)
 {
 	if(list == NULL)
-		return;
+		return NULL;
 
 	list_entry_t *entry = list->head;
 
 	if(entry == NULL)
-		return;
+		return NULL;
 
 	list->head = entry->next;
 
@@ -143,9 +145,13 @@ void list_pop_front(list_t *list)
 	if(entry->next != NULL)
 		entry->next->prev = NULL;
 
+	void *data = entry->data;
+	
 	free(entry);
 
 	list->size--;
+
+	return data;
 }
 
 bool list_empty(list_t *list)
@@ -164,30 +170,19 @@ size_t list_get_size(list_t *list)
 	return list->size;
 }
 
-void *list_vectorize(list_t *list, size_t data_size)
+void list_vectorize(list_t *list, void *dst, size_t data_size)
 {
-	if(list == NULL || list->size == 0)
-		return NULL;
+	if (list == NULL || list->size == 0)
+		return;
+
+	void *ptr = dst;
 
 	list_entry_t *entry = list->head;
-
-	if(entry == NULL)
-		return NULL;
-
-	void *vector = malloc((list->size) * data_size);
-
-	if(vector == NULL)
-		return NULL;
-	
-	void *ptr = vector;
-
-	while(entry != NULL){
+	while (entry != NULL) {
 		memcpy(ptr, entry->data, data_size);
 		ptr += data_size;
 		entry = entry->next;
 	}
-
-	return vector;
 }
 
 void list_clear(list_t *list)
